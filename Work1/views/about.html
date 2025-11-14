@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - InfraKnit</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/about.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <h2>InfraKnit</h2>
+        </div>
+        <ul class="nav-links">
+            <li><a href="main.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="signup.html">Sign Up</a></li>
+        </ul>
+    </nav>
+    <div id="about">
+        <div class="imgContainer">
+            <img src="../assets/aboutImg.png" alt="About Image">
+        </div>
+        <div class="aboutContent">
+            <h1>About InfraKnit</h1>
+            <p>InfraKnit is dedicated to providing top-notch infrastructure solutions tailored to meet the unique needs of our clients. With a team of experienced professionals, we strive to deliver excellence in every project we undertake.</p>
+            <p>Our mission is to build lasting relationships with our clients by offering innovative solutions, exceptional service, and unwavering commitment to quality.</p>
+        </div>
+    </div>
+
+
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+    const token = localStorage.getItem("token");
+    const navLinks = document.querySelector(".nav-links");
+
+    // Dynamic navbar
+    if (token) {
+        navLinks.innerHTML = `
+            <li><a href="main.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="#" onclick="logout()">Logout</a></li>
+        `;
+    } else {
+        navLinks.innerHTML = `
+            <li><a href="main.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="signup.html">Sign Up</a></li>
+        `;
+    }
+});
+</script>
+
+</body>
+</html>
+

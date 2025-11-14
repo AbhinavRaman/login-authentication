@@ -1,0 +1,229 @@
+*{
+    box-sizing:border-box;
+}
+    
+html, body{
+    margin:0;
+    padding:0;
+    width: 100%;
+}
+
+/* Nav Section - Imported from navbar.css */
+/* Navbar styles are now in css/navbar.css for consistency across all pages */
+
+/* Main Section */
+.main{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.content{
+    width: 100%;
+    height: calc(100vh - 120px);
+    justify-content: center;
+    align-items: center;
+}
+
+.bgImgContainer{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bgImgContainer img{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    filter: brightness(60%);
+}
+
+.introText{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* customer review section */
+
+.customerReview{
+    width: 100%;
+    background: linear-gradient(180deg, #f6fbff 0%, #eef5ff 100%);
+    color: #1f2937; /* dark gray text */
+    padding: 40px;
+    box-sizing: border-box;
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.reviews-container{
+    flex: 1;
+    min-width: 0;
+}
+
+.review-cards{
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.card{
+    padding: 24px;
+    background-color: #e2ecff; /* slightly darker pastel blue */
+    border: 1px solid #4a6bae; /* slightly darker light blue border */
+    border-radius: 18px;
+    flex: 1 1 280px;
+    max-width: 320px;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 16px;
+    box-shadow: 0 4px 14px rgba(30, 64, 175, 0.12); /* subtle indigo shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+    overflow: hidden;
+}
+
+.card:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 16px 28px rgba(30, 64, 175, 0.22);
+    border-color: #3c5ea0;
+    background-color: #d9e4ff; /* slightly brighter on hover */
+}
+
+.card p{
+    color: #111827;
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 10px 0;
+}
+
+.card span{
+    color: #4b5563;
+    font-size: 14px;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.userReviewForm{
+    flex: 0 0 400px;
+    padding: 30px;
+    background-color: #f9fbff; /* tinted, not pure white */
+    border: 1px solid #4a6bae;
+    border-radius: 10px;
+    position: sticky;
+    top: 20px;
+}
+
+.userReviewForm h2{
+    color: #0f172a;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#reviewForm{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#reviewForm label{
+    font-size: 16px;
+    color: #0f172a;
+    margin-bottom: 5px;
+    display: block;
+}
+
+#reviewForm input, #reviewForm textarea{
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #4a6bae;
+    background-color: #f7fbff; /* soft input background */
+    color: #0f172a;
+    font-size: 16px;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+#reviewForm input::placeholder, #reviewForm textarea::placeholder{
+    color: #9ca3af;
+}
+
+#reviewForm input:focus, #reviewForm textarea:focus{
+    outline: none;
+    border-color: #93c5fd;
+    box-shadow: 0 0 0 3px rgba(147, 197, 253, 0.35);
+}
+
+#reviewForm textarea{
+    min-height: 100px;
+    resize: vertical;
+}
+
+#reviewForm button{
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    background-color: #3b82f6; /* blue */
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    margin-top: 10px;
+}
+
+#reviewForm button:hover{
+    background-color: #2563eb;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
+}
+
+#reviewForm button:active{
+    transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+    .customerReview{
+        flex-direction: column;
+        gap: 30px;
+        padding: 30px 20px;
+    }
+    
+    .userReviewForm{
+        flex: 1;
+        width: 100%;
+        position: static;
+    }
+    
+    .review-cards{
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .review-cards{
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .card{
+        max-width: 100%;
+        min-width: auto;
+        aspect-ratio: auto;
+    }
+}

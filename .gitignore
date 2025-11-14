@@ -1,0 +1,22 @@
+# Node modules
+backend/node_modules/
+Work1/node_modules/
+
+# Env files
+backend/.env
+
+# Logs
+*.log
+logs/
+npm-debug.log
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Build/output (if added in future)
+dist/
+build/
+
+# IDE / editor files
+.vscode/

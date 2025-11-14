@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InfraKnit - Home</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <h2>InfraKnit</h2>
+        </div>
+        <ul class="nav-links">
+            <li><a href="main.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="signup.html">Sign Up</a></li>
+        </ul>
+    </nav>
+    <div class="main">
+        <div class="content">
+            <div class="bgImgContainer">
+                <img src="../assets/bg-Img.jpg" alt="bg-Img">
+            </div>
+
+            <div class="introText">
+                <h2 id="welcomeUser"></h2>
+
+                <h1>Welcome to InfraKnit</h1>
+                <p>Your trusted partner in infrastructure solutions.</p>
+            </div>
+        </div>
+
+        <div class="customerReview">
+            <div class="reviews-container">
+                <div class="review-cards">
+                    <div class="card">
+                        <p>"Great service and friendly staff!"</p>
+                        <span>- John D.</span>
+                    </div>
+                    <div class="card">
+                        <p>"I love the quality of their products."</p>
+                        <span>- Sarah K.</span>
+                    </div>
+                    <div class="card">
+                        <p>"Fast delivery and excellent customer support."</p>
+                        <span>- Mike L.</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="userReviewForm">
+                <h2>Submit Your Review</h2>
+                <form id="reviewForm">
+                    <label for="userName">Name:</label>
+                    <input type="text" id="userName" name="userName" required>
+
+                    <label for="userReview">Review:</label>
+                    <textarea id="userReview" name="userReview" required></textarea>
+
+                    <button type="submit">Submit Review</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../js/auth.js"></script>
+    <script src="../js/main.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const token = localStorage.getItem("token");
+            const navLinks = document.querySelector(".nav-links");
+
+            if (token) {
+                navLinks.innerHTML = `
+                    <li><a href="main.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="#" id="logoutBtn">Logout</a></li>
+                `;
+            } else {
+                navLinks.innerHTML = `
+                    <li><a href="main.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="signup.html">Sign Up</a></li>
+                `;
+            }
+
+            // Add logout event
+            const logoutBtn = document.getElementById("logoutBtn");
+            if (logoutBtn) {
+                logoutBtn.addEventListener("click", logout);
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const user = JSON.parse(localStorage.getItem("user"));
+            const welcome = document.getElementById("welcomeUser");
+
+            if (user && welcome) {
+                welcome.textContent = `Welcome, ${user.fullName}!`;
+            }
+        });
+    </script>
+
+
+
+</body>
+</html>

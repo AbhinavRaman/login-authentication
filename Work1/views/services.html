@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - InfraKnit</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/servicesStyle.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <h2>InfraKnit</h2>
+        </div>
+        <ul class="nav-links">
+            <li><a href="main.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="signup.html">Sign Up</a></li>
+        </ul>
+    </nav>
+
+    <div id="services">
+        <!-- Top Section with Teal Overlay -->
+        <div class="serviceHero">
+            <div class="serviceBackground">
+                <img src="../assets/bg-Img.jpg" alt="serviceBackground" class="serviceBgImg">
+            </div>
+            <div class="tealOverlay"></div>
+            <div class="serviceTitleContainer">
+                <h1 class="servicesTitle">Our Services</h1>
+                <p class="servicesSubtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+            </div>
+        </div>
+
+        <!-- Bottom Section with Service Cards -->
+        <div class="servicesSection">
+            <div class="servicesContainer">
+                <div class="serviceCard">
+                    <div class="serviceIcon teal">
+                        <span class="iconSymbol">$</span>
+                    </div>
+                    <h3 class="serviceName teal">Service Name</h3>
+                    <p class="serviceDescription">Dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                </div>
+
+                <div class="serviceCard">
+                    <div class="serviceIcon dark">
+                        <span class="iconSymbol">#</span>
+                    </div>
+                    <h3 class="serviceName dark">Service Name</h3>
+                    <p class="serviceDescription">Dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                </div>
+
+                <div class="serviceCard">
+                    <div class="serviceIcon teal">
+                        <span class="iconSymbol">&</span>
+                    </div>
+                    <h3 class="serviceName teal">Service Name</h3>
+                    <p class="serviceDescription">Dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                </div>
+
+                <div class="serviceCard">
+                    <div class="serviceIcon dark">
+                        <span class="iconSymbol">%</span>
+                    </div>
+                    <h3 class="serviceName dark">Service Name</h3>
+                    <p class="serviceDescription">Dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+    const token = localStorage.getItem("token");
+    const navLinks = document.querySelector(".nav-links");
+
+    // Dynamic navbar
+    if (token) {
+        navLinks.innerHTML = `
+            <li><a href="main.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="#" onclick="logout()">Logout</a></li>
+        `;
+    } else {
+        navLinks.innerHTML = `
+            <li><a href="main.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="signup.html">Sign Up</a></li>
+        `;
+    }
+});
+</script>
+
+</body>
+</html>
+

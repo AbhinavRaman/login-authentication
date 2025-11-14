@@ -1,0 +1,7 @@
+# OS artifacts
+Thumbs.db
+.DS_Store
+
+# Editor swap / temp files
+*.swp
+*~
