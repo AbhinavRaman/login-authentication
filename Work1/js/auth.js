@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     showMessage('Login successful!', 'success');
                     // Redirect to home page
-                    window.location.href = 'main.html';
+                    window.location.href = 'profile.html';
                 } else {
                     showMessage(data.message || 'Login failed');
                     submitButton.disabled = false;
