@@ -69,6 +69,33 @@
                 </div>
             </section>
 
+            <!-- BLLOG CREATE MODAL -->
+            <div id="blogModal" class="modal hidden">
+                <div class="modal-content">
+                    <h2>Create New Blog</h2>
+
+                    <label for="title">Title:</label>
+                    <input type="text" id="blogTitleInput" placeholder="Enter blog title">
+
+                    <label for="content">Content:</label>
+                    <textarea id="blogContentInput" class="rich-editor" placeholder="Write your blog..."></textarea>
+
+                    <div class="modal-buttons">
+                        <button id="cancelBlogBtn" class="cancel-btn">Cancel</button>
+                        <button id="publishBlogBtn" class="publish-btn">Publish Blog</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blog View Modal -->
+            <div id="viewModal" class="modal hidden">
+                <div class="modal-content">
+                    <h2 id="viewBlogTitle"></h2>
+                    <p id="viewBlogContent"></p>
+
+                    <button id="closeViewBtn" class="cancel-btn">Close</button>
+                </div>
+            </div>
         </main>
 
     </div>
