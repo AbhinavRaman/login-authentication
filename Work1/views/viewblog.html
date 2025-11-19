@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Blog</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+
+    <div class="blog-container">
+        <h1 id="blogTitle">Loading...</h1>
+        <p id="blogContent"></p>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const blogId = params.get("id");
+
+        fetch(`http://localhost:3000/api/blogs/${blogId}`)
+            .then(res => res.json())
+            .then(data => {
+                if (!data.success) {
+                    document.getElementById("blogTitle").textContent = "Blog not found";
+                    return;
+                }
+
+                document.getElementById("blogTitle").textContent = data.blog.title;
+                document.getElementById("blogContent").textContent = data.blog.content;
+            });
+    </script>
+
+</body>
+</html>

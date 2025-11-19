@@ -1,57 +1,98 @@
-// Handle review form submission
-document.addEventListener('DOMContentLoaded', function() {
-    const reviewForm = document.getElementById('reviewForm');
-    const reviewCards = document.querySelector('.review-cards');
+// LOAD BLOGS ON HOME PAGE
 
-    reviewForm.addEventListener('submit', function(e) {
-        e.preventDefault(); // Prevent form from submitting normally
+document.addEventListener("DOMContentLoaded", () => {
+    loadBlogsToHome();
+});
 
-        // Get form values
-        const userName = document.getElementById('userName').value.trim();
-        const userReview = document.getElementById('userReview').value.trim();
+// Fetch blogs from backend and show on home page
+function loadBlogsToHome() {
+    // const blogContainer = document.querySelector(".blogs");
+    const blogCardContainer = document.querySelector(".blog-card-container");
 
-        // Validate inputs
+    fetch("http://localhost:3000/api/blogs/all")
+        .then(res => res.json())
+        .then(data => {
+            if (!data.success || data.blogs.length === 0) {
+                blogCardContainer.innerHTML += `<p>No blogs available.</p>`;
+                return;
+            }
+
+            data.blogs.forEach(blog => {
+                const card = document.createElement("div");
+                card.classList.add("home-blog-card");
+
+                card.innerHTML = `
+                    <h3>${blog.title}</h3>
+                    <p>${blog.content.substring(0, 120)}...</p>
+                    <button class="readMoreBtn" data-id="${blog._id}">Read More</button>
+                `;
+
+                blogCardContainer.appendChild(card);
+            });
+
+            // Add click events to read more buttons
+            document.querySelectorAll(".readMoreBtn").forEach(btn => {
+                btn.addEventListener("click", (e) => {
+                    const id = e.target.getAttribute("data-id");
+                    window.location.href = "viewblog.html?id=" + id;
+                });
+            });
+        })
+        .catch(err => {
+            console.error("Blog load error:", err);
+            blogCardContainer.innerHTML += `<p>Error loading blogs.</p>`;
+        });
+}
+
+// ADD USER REVIEWS (LOCAL)
+
+document.addEventListener("DOMContentLoaded", function () {
+    const reviewForm = document.getElementById("reviewForm");
+    const reviewCards = document.querySelector(".review-cards");
+
+    if (!reviewForm) return; // Prevent errors on other pages
+
+    reviewForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const userName = document.getElementById("userName").value.trim();
+        const userReview = document.getElementById("userReview").value.trim();
+
         if (!userName || !userReview) {
-            alert('Please fill in all fields');
+            alert("Please fill in all fields");
             return;
         }
 
         // Create new review card
-        const newCard = document.createElement('div');
-        newCard.className = 'card';
-        
-        // Create review text with quotes
-        const reviewText = document.createElement('p');
+        const newCard = document.createElement("div");
+        newCard.className = "card";
+
+        const reviewText = document.createElement("p");
         reviewText.textContent = `"${userReview}"`;
-        
-        // Create author name
-        const authorName = document.createElement('span');
+
+        const authorName = document.createElement("span");
         authorName.textContent = `- ${userName}`;
-        
-        // Append elements to card
+
         newCard.appendChild(reviewText);
         newCard.appendChild(authorName);
-        
-        // Add animation by inserting at the beginning
-        newCard.style.opacity = '0';
-        newCard.style.transform = 'translateY(20px)';
-        reviewCards.insertBefore(newCard, reviewCards.firstChild);
-        
-        // Animate in
-        setTimeout(() => {
-            newCard.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-            newCard.style.opacity = '1';
-            newCard.style.transform = 'translateY(0)';
 
-            // After animation, remove inline styles so CSS :hover works
+        // Animation
+        newCard.style.opacity = "0";
+        newCard.style.transform = "translateY(20px)";
+        reviewCards.insertBefore(newCard, reviewCards.firstChild);
+
+        setTimeout(() => {
+            newCard.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+            newCard.style.opacity = "1";
+            newCard.style.transform = "translateY(0)";
+
             setTimeout(() => {
-                newCard.style.transition = '';
-                newCard.style.transform = '';
-                newCard.style.opacity = '';
+                newCard.style.transition = "";
+                newCard.style.transform = "";
+                newCard.style.opacity = "";
             }, 600);
         }, 10);
 
-        // Reset form
         reviewForm.reset();
     });
 });

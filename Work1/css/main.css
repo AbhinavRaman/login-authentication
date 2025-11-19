@@ -196,6 +196,57 @@ html, body{
     transform: translateY(0);
 }
 
+/* blog section home page */
+
+.blogs{
+    width: 100%;
+    padding: 40px 20px 20px 20px;
+    box-sizing: border-box;
+}
+
+.blogs h2{
+    color: #0f172a;
+    margin-bottom: 20px;
+    text-align: center;
+    display: block;
+}
+
+.blog-card-container{
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+}
+
+.home-blog-card {
+    background: rgba(24, 171, 234, 0.60);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom: 15px;
+    width: 300px;
+}
+
+.home-blog-card h3 {
+    margin: 0;
+}
+
+.readMoreBtn {
+    margin-top: 10px;
+    padding: 8px 14px;
+    border: none;
+    background: #4388ce;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.readMoreBtn:hover {
+    background: #2e6db1;
+}
+
+
 /* Responsive Design */
 @media (max-width: 968px) {
     .customerReview{

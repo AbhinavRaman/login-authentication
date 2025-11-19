@@ -42,6 +42,16 @@ router.post("/create", auth, async (req, res) => {
     }
 });
 
+// Public route → get all blogs for home page
+router.get("/all", async (req, res) => {
+    try {
+        const blogs = await Blog.find().sort({ createdAt: -1 });
+        res.json({ success: true, blogs });
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Error fetching blogs" });
+    }
+});
+
 // Load User Blogs
 router.get("/myblogs", auth, async (req, res) => {
     try {
