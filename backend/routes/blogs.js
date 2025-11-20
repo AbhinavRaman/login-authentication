@@ -3,7 +3,9 @@ const router = express.Router();
 const Blog = require("../models/Blog");
 const jwt = require("jsonwebtoken");
 
-// JWT Auth Middleware
+// ----------------------------
+// JWT AUTH MIDDLEWARE
+// ----------------------------
 function auth(req, res, next) {
     const authHeader = req.headers.authorization;
 
@@ -15,14 +17,16 @@ function auth(req, res, next) {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = decoded; // user id inside token
+        req.user = decoded; 
         next();
     } catch (error) {
         return res.status(401).json({ success: false, message: "Invalid token" });
     }
 }
 
-// CREATE BLOG  (AUTH REQUIRED)
+// ----------------------------
+// CREATE BLOG (AUTH REQUIRED)
+// ----------------------------
 router.post("/create", auth, async (req, res) => {
     try {
         const { title, content } = req.body;
@@ -42,30 +46,43 @@ router.post("/create", auth, async (req, res) => {
     }
 });
 
-// PUBLIC — GET ALL BLOGS (HOME PAGE)
+// ----------------------------
+// PUBLIC — GET ALL BLOGS
+// ----------------------------
 router.get("/all", async (req, res) => {
     try {
-        const blogs = await Blog.find().sort({ createdAt: -1 });
+        const blogs = await Blog.find()
+            .populate("userId", "fullName username email")
+            .sort({ createdAt: -1 });
+
         res.json({ success: true, blogs });
     } catch (error) {
         res.status(500).json({ success: false, message: "Error fetching blogs" });
     }
 });
 
+// ----------------------------
 // GET USER'S OWN BLOGS (AUTH REQUIRED)
+// ----------------------------
 router.get("/myblogs", auth, async (req, res) => {
     try {
-        const blogs = await Blog.find({ userId: req.user.id }).sort({ createdAt: -1 });
+        const blogs = await Blog.find({ userId: req.user.id })
+            .populate("userId", "fullName username")
+            .sort({ createdAt: -1 });
+
         res.json({ success: true, blogs });
     } catch (error) {
         res.status(500).json({ success: false, message: "Error fetching blogs" });
     }
 });
 
-// PUBLIC — GET A FULL BLOG BY ID
+// ----------------------------
+// PUBLIC — GET FULL BLOG BY ID
+// ----------------------------
 router.get("/:id", async (req, res) => {
     try {
-        const blog = await Blog.findById(req.params.id);
+        const blog = await Blog.findById(req.params.id)
+            .populate("userId", "fullName username email");
 
         if (!blog) {
             return res.status(404).json({ success: false, message: "Blog not found" });
@@ -73,6 +90,7 @@ router.get("/:id", async (req, res) => {
 
         res.json({ success: true, blog });
     } catch (error) {
+        console.log(error);
         res.status(500).json({ success: false, message: "Error fetching blog" });
     }
 });

@@ -4,63 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Blogs</title>
-    <link rel="stylesheet" href="../css/main.css">
-    <style>
-        .all-blogs-container {
-            padding: 40px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-        .blog-card {
-            background: #e5f7ff;
-            padding: 20px;
-            width: 320px;
-            border-radius: 12px;
-            cursor: pointer;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-            transition: 0.3s;
-        }
-        .blog-card:hover {
-            transform: translateY(-5px);
-        }
-    </style>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/viewblogs.css">
 </head>
 <body>
 
-    <h1 style="text-align:center;">All Blogs</h1>
+    <h1 class="page-heading">All Blogs</h1>
 
+    <!-- Blog Cards Grid -->
     <div class="all-blogs-container" id="allBlogs"></div>
 
-    <script>
-        fetch("http://localhost:3000/api/blogs/all")
-            .then(res => res.json())
-            .then(data => {
-                const container = document.getElementById("allBlogs");
+    <!-- Modal Popup for Full Blog -->
+    <div class="blog-modal hidden" id="blogModal">
 
-                if (!data.success || data.blogs.length === 0) {
-                    container.innerHTML = "<p>No blogs found.</p>";
-                    return;
-                }
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">&times;</span>
 
-                data.blogs.forEach(blog => {
-                    const card = document.createElement("div");
-                    card.className = "blog-card";
+            <h2 id="modalBlogTitle">Loading...</h2>
+            <p id="modalBlogAuthor" class="blog-author"></p>
+            <p id="modalBlogContent"></p>
 
-                    card.innerHTML = `
-                        <h3>${blog.title}</h3>
-                        <p>${blog.content.substring(0, 150)}...</p>
-                    `;
+            <p class="blog-date" id="modalBlogDate"></p>
+        </div>
 
-                    card.addEventListener("click", () => {
-                        window.location.href = "viewblog.html?id=" + blog._id;
-                    });
+    </div>
 
-                    container.appendChild(card);
-                });
-            });
-    </script>
+    <!-- JS -->
+    <script src="../js/viewblogs.js"></script>
 
 </body>
 </html>

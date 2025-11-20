@@ -23,7 +23,8 @@
     <div class="main">
         <div class="content">
             <div class="bgImgContainer">
-                <img src="../assets/bg-Img.jpg" alt="bg-Img">
+                <!-- <img src="../assets/bg-Img.jpg" alt="bg-Img"> -->
+                <video src="../assets/289855_small.mp4" alt="bg-Img" muted autoplay loop></video>
             </div>
 
             <div class="introText">
@@ -72,6 +73,19 @@
             </div>
         </div>
     </div>
+
+    <!-- BLOG MODAL FOR HOME PAGE -->
+    <div id="homeBlogModal" class="modal hidden">
+        <div class="modal-content">
+            <span id="closeHomeModal" class="close-btn">&times;</span>
+
+            <h2 id="homeModalBlogTitle"></h2>
+            <p id="homeModalBlogAuthor" style="font-weight:600;margin-top:5px;"></p>
+            <p id="homeModalBlogDate" style="font-size:13px;color:gray;margin-bottom:10px;"></p>
+
+            <div id="homeModalBlogContent"></div>
+        </div>
+    </div>
     
     <script src="../js/auth.js"></script>
     <script src="../js/main.js"></script>
@@ -117,8 +131,5 @@
             }
         });
     </script>
-
-
-
 </body>
 </html>

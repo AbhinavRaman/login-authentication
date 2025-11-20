@@ -17,7 +17,7 @@ function loadBlogsToHome() {
             }
 
             // Show only latest 3 blogs on home page
-            const latestBlogs = data.blogs.slice(0, 3);
+            const latestBlogs = data.blogs.slice(0, 4);
 
             latestBlogs.forEach(blog => {
                 const card = document.createElement("div");
@@ -28,6 +28,7 @@ function loadBlogsToHome() {
                     <p>${blog.content.substring(0, 120)}...</p>
                 `;
 
+                card.addEventListener("click", () => openHomeBlogModal(blog));
                 blogCardContainer.appendChild(card);
             });
 
@@ -43,6 +44,39 @@ function loadBlogsToHome() {
             blogCardContainer.innerHTML += `<p>Error loading blogs.</p>`;
         });
 }
+
+// HOME PAGE BLOG POPUP (ONLY FREE ADDITION)
+
+const homeModal = document.getElementById("homeBlogModal");
+const closeHomeModal = document.getElementById("closeHomeModal");
+
+function openHomeBlogModal(blog) {
+    document.getElementById("homeModalBlogTitle").textContent = blog.title;
+
+    const author =
+        blog.userId?.fullName ||
+        blog.userId?.fullname ||     // sometimes lowercase depending on mongoose
+        blog.userId?.username ||
+        "Unknown Author";
+
+    document.getElementById("homeModalBlogAuthor").textContent = "By: " + author;
+
+    const date = new Date(blog.createdAt).toLocaleDateString();
+    document.getElementById("homeModalBlogDate").textContent = "Posted on: " + date;
+
+    document.getElementById("homeModalBlogContent").textContent = blog.content;
+
+    homeModal.classList.remove("hidden");
+}
+
+closeHomeModal.addEventListener("click", () => {
+    homeModal.classList.add("hidden");
+});
+
+homeModal.addEventListener("click", (e) => {
+    if (e.target === homeModal) homeModal.classList.add("hidden");
+});
+
 
 
 
