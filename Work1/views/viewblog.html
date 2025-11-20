@@ -3,30 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Blog</title>
+    <title>All Blogs</title>
     <link rel="stylesheet" href="../css/main.css">
+    <style>
+        .all-blogs-container {
+            padding: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .blog-card {
+            background: #e5f7ff;
+            padding: 20px;
+            width: 320px;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
 </head>
 <body>
 
-    <div class="blog-container">
-        <h1 id="blogTitle">Loading...</h1>
-        <p id="blogContent"></p>
-    </div>
+    <h1 style="text-align:center;">All Blogs</h1>
+
+    <div class="all-blogs-container" id="allBlogs"></div>
 
     <script>
-        const params = new URLSearchParams(window.location.search);
-        const blogId = params.get("id");
-
-        fetch(`http://localhost:3000/api/blogs/${blogId}`)
+        fetch("http://localhost:3000/api/blogs/all")
             .then(res => res.json())
             .then(data => {
-                if (!data.success) {
-                    document.getElementById("blogTitle").textContent = "Blog not found";
+                const container = document.getElementById("allBlogs");
+
+                if (!data.success || data.blogs.length === 0) {
+                    container.innerHTML = "<p>No blogs found.</p>";
                     return;
                 }
 
-                document.getElementById("blogTitle").textContent = data.blog.title;
-                document.getElementById("blogContent").textContent = data.blog.content;
+                data.blogs.forEach(blog => {
+                    const card = document.createElement("div");
+                    card.className = "blog-card";
+
+                    card.innerHTML = `
+                        <h3>${blog.title}</h3>
+                        <p>${blog.content.substring(0, 150)}...</p>
+                    `;
+
+                    card.addEventListener("click", () => {
+                        window.location.href = "viewblog.html?id=" + blog._id;
+                    });
+
+                    container.appendChild(card);
+                });
             });
     </script>
 

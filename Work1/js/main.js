@@ -1,42 +1,42 @@
-// LOAD BLOGS ON HOME PAGE
+// Load blogs on home page
 
 document.addEventListener("DOMContentLoaded", () => {
     loadBlogsToHome();
 });
 
-// Fetch blogs from backend and show on home page
+/* Fetch blogs from backend and show on home page */
 function loadBlogsToHome() {
-    // const blogContainer = document.querySelector(".blogs");
     const blogCardContainer = document.querySelector(".blog-card-container");
 
     fetch("http://localhost:3000/api/blogs/all")
         .then(res => res.json())
         .then(data => {
             if (!data.success || data.blogs.length === 0) {
-                blogCardContainer.innerHTML += `<p>No blogs available.</p>`;
+                blogCardContainer.innerHTML = `<p>No blogs available.</p>`;
                 return;
             }
 
-            data.blogs.forEach(blog => {
+            // Show only latest 3 blogs on home page
+            const latestBlogs = data.blogs.slice(0, 3);
+
+            latestBlogs.forEach(blog => {
                 const card = document.createElement("div");
                 card.classList.add("home-blog-card");
 
                 card.innerHTML = `
                     <h3>${blog.title}</h3>
                     <p>${blog.content.substring(0, 120)}...</p>
-                    <button class="readMoreBtn" data-id="${blog._id}">Read More</button>
                 `;
 
                 blogCardContainer.appendChild(card);
             });
 
-            // Add click events to read more buttons
-            document.querySelectorAll(".readMoreBtn").forEach(btn => {
-                btn.addEventListener("click", (e) => {
-                    const id = e.target.getAttribute("data-id");
-                    window.location.href = "viewblog.html?id=" + id;
-                });
+            // Add event listener to "View All Blogs" button
+            const viewAllBlogsBtn = document.getElementById("viewAllBlogsBtn");
+            viewAllBlogsBtn.addEventListener("click", () => {
+                window.location.href = "viewblog.html";
             });
+
         })
         .catch(err => {
             console.error("Blog load error:", err);
@@ -44,13 +44,15 @@ function loadBlogsToHome() {
         });
 }
 
-// ADD USER REVIEWS (LOCAL)
+
+
+// Local user review (not connected to backend)
 
 document.addEventListener("DOMContentLoaded", function () {
     const reviewForm = document.getElementById("reviewForm");
     const reviewCards = document.querySelector(".review-cards");
 
-    if (!reviewForm) return; // Prevent errors on other pages
+    if (!reviewForm) return; // ensures this part doesn’t run on other pages
 
     reviewForm.addEventListener("submit", function (e) {
         e.preventDefault();

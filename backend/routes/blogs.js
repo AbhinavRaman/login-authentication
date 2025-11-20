@@ -22,7 +22,7 @@ function auth(req, res, next) {
     }
 }
 
-// Create Blog
+// CREATE BLOG  (AUTH REQUIRED)
 router.post("/create", auth, async (req, res) => {
     try {
         const { title, content } = req.body;
@@ -42,7 +42,7 @@ router.post("/create", auth, async (req, res) => {
     }
 });
 
-// Public route → get all blogs for home page
+// PUBLIC — GET ALL BLOGS (HOME PAGE)
 router.get("/all", async (req, res) => {
     try {
         const blogs = await Blog.find().sort({ createdAt: -1 });
@@ -52,7 +52,7 @@ router.get("/all", async (req, res) => {
     }
 });
 
-// Load User Blogs
+// GET USER'S OWN BLOGS (AUTH REQUIRED)
 router.get("/myblogs", auth, async (req, res) => {
     try {
         const blogs = await Blog.find({ userId: req.user.id }).sort({ createdAt: -1 });
@@ -62,8 +62,8 @@ router.get("/myblogs", auth, async (req, res) => {
     }
 });
 
-// Get Full Blog
-router.get("/:id", auth, async (req, res) => {
+// PUBLIC — GET A FULL BLOG BY ID
+router.get("/:id", async (req, res) => {
     try {
         const blog = await Blog.findById(req.params.id);
 

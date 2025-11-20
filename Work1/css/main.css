@@ -232,18 +232,20 @@ html, body{
     margin: 0;
 }
 
-.readMoreBtn {
-    margin-top: 10px;
-    padding: 8px 14px;
-    border: none;
-    background: #4388ce;
+.view-all-btn {
+    padding: 12px 24px;
+    background: #045bb8;
     color: white;
-    border-radius: 6px;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
+    display: block;
+    margin: 25px auto;
+    font-size: 18px;
 }
 
-.readMoreBtn:hover {
-    background: #2e6db1;
+.view-all-btn:hover {
+    background: #034a96;
 }
 
 
