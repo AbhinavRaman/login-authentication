@@ -69,15 +69,15 @@
                 </div>
             </section>
 
-            <!-- BLLOG CREATE MODAL -->
+            <!-- BLOG CREATE MODAL -->
             <div id="blogModal" class="modal hidden">
                 <div class="modal-content">
                     <h2>Create New Blog</h2>
 
-                    <label for="title">Title:</label>
+                    <label for="blogTitleInput">Title:</label>
                     <input type="text" id="blogTitleInput" placeholder="Enter blog title">
 
-                    <label for="content">Content:</label>
+                    <label for="blogContentInput">Content:</label>
                     <textarea id="blogContentInput" class="rich-editor" placeholder="Write your blog..."></textarea>
 
                     <div class="modal-buttons">
@@ -87,7 +87,7 @@
                 </div>
             </div>
 
-            <!-- Blog View Modal -->
+            <!-- BLOG VIEW MODAL (READ ONLY) -->
             <div id="viewModal" class="modal hidden">
                 <div class="modal-content">
                     <h2 id="viewBlogTitle"></h2>
@@ -96,6 +96,25 @@
                     <button id="closeViewBtn" class="cancel-btn">Close</button>
                 </div>
             </div>
+
+            <!-- BLOG EDIT MODAL -->
+            <div id="editModal" class="modal hidden">
+                <div class="modal-content">
+                    <span id="closeEditBtn" class="close-btn">&times;</span>
+                    <h2>Edit Blog</h2>
+
+                    <label for="editBlogTitleInput">Title:</label>
+                    <input type="text" id="editBlogTitleInput" class="modal-input">
+
+                    <label for="editBlogContentInput">Content:</label>
+                    <textarea id="editBlogContentInput" class="modal-textarea"></textarea>
+
+                    <div class="modal-buttons">
+                        <button id="saveEditBlogBtn" class="publish-btn">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+
         </main>
 
     </div>

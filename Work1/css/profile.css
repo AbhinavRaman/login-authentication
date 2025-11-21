@@ -144,6 +144,7 @@ body {
     background: #f7f9fc;
     border-radius: 8px;
     margin-bottom: 12px;
+    cursor: pointer;
 }
 
 .blog-card h3 {
@@ -155,15 +156,15 @@ body {
     color: #555;
 }
 
-/* Blog Create Modal styling */
+/* Blog Create / View / Edit Modal styling */
 
 .modal{
-    position: hidden;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    /* background: rgba(0,0,0,0.45); */
+    background: rgba(0,0,0,0.45);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -179,7 +180,7 @@ body {
     background: #fff;
     padding: 25px;
     border-radius: 10px;
-    box-shadow: 0 4px 20px rgb(53, 193, 200);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
 }
 
 .modal-content h2{
@@ -187,12 +188,12 @@ body {
 }
 
 .modal-content input, .modal-content textarea{
-    width: calc(100% - 20px);
+    width: calc(100% - 24px);
     margin-bottom: 15px;
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 8px;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .rich-editor{
@@ -220,4 +221,35 @@ body {
     color: #fff;
     border-radius: 8px;
     cursor: pointer;
+}
+
+/* edit modal extras */
+.close-btn {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* update and delete buttons */
+.blog-actions {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.editBlogBtn, .deleteBlogBtn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.editBlogBtn {
+    background: #4CAF50;
+    color: white;
+}
+
+.deleteBlogBtn {
+    background: #d9534f;
+    color: white;
 }

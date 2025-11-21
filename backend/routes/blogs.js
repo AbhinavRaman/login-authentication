@@ -95,4 +95,50 @@ router.get("/:id", async (req, res) => {
     }
 });
 
+// UPDATE BLOG (AUTH REQUIRED)
+router.put("/update/:id", auth, async (req, res) => {
+    try {
+        const { title, content } = req.body;
+
+        const blog = await Blog.findById(req.params.id);
+
+        if (!blog){
+            return res.status(404).json({ success: false, message: "Blog not found" });
+        }
+
+        if (blog.userId.toString() !== req.user.id) {
+            return res.status(403).json({ success: false, message: "Unauthorized" });
+        }
+
+        blog.title = title;
+        blog.content = content;
+        await blog.save();
+
+        res.json({ success: true, message: "Blog updated", blog });
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Error updating blog" });
+    }
+});
+
+// DELETE BLOG (AUTH REQUIRED)
+router.delete("/delete/:id", auth, async (req, res) => {
+    try {
+        const blog = await Blog.findById(req.params.id);
+
+        if (!blog){
+            return res.status(404).json({ success: false, message: "Blog not found" });
+        }
+
+        if (blog.userId.toString() !== req.user.id) {
+            return res.status(403).json({ success: false, message: "Unauthorized" });
+        }
+
+        await blog.deleteOne();
+
+        res.json({ success: true, message: "Blog deleted" });
+    }catch (error) {
+        res.status(500).json({ success: false, message: "Error deleting blog" });
+    }
+});
+
 module.exports = router;
