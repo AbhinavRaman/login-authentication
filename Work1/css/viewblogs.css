@@ -1,3 +1,10 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9fafb;
+    margin: 0;
+    padding: 0;
+}
+
 /* Page Layout */
 .page-heading {
     text-align: center;
@@ -16,9 +23,10 @@
 }
 
 .blog-card {
-    background: #5bc9d1;
     padding: 20px;
-    width: 320px;
+    width: 250px;
+    height: auto;
+    border: cyan 2px solid;
     border-radius: 12px;
     cursor: pointer;
     box-shadow: 0 3px 8px rgba(0,0,0,0.1);

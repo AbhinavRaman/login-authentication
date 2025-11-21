@@ -1,5 +1,4 @@
 // Load blogs on home page
-
 document.addEventListener("DOMContentLoaded", () => {
     loadBlogsToHome();
 });
@@ -16,7 +15,7 @@ function loadBlogsToHome() {
                 return;
             }
 
-            // Show only latest 3 blogs on home page
+            // Show only latest 4 blogs on home page
             const latestBlogs = data.blogs.slice(0, 4);
 
             latestBlogs.forEach(blog => {
@@ -28,15 +27,21 @@ function loadBlogsToHome() {
                     <p>${blog.content.substring(0, 120)}...</p>
                 `;
 
-                card.addEventListener("click", () => openHomeBlogModal(blog));
+                // Click → open full blog page (from = home)
+                card.addEventListener("click", () => {
+                    window.location.href = `viewFullBlog.html?id=${blog._id}&from=home`;
+                });
+
                 blogCardContainer.appendChild(card);
             });
 
-            // Add event listener to "View All Blogs" button
+            // "View All Blogs" button → all blogs page
             const viewAllBlogsBtn = document.getElementById("viewAllBlogsBtn");
-            viewAllBlogsBtn.addEventListener("click", () => {
-                window.location.href = "viewblog.html";
-            });
+            if (viewAllBlogsBtn) {
+                viewAllBlogsBtn.addEventListener("click", () => {
+                    window.location.href = "viewblog.html";
+                });
+            }
 
         })
         .catch(err => {
@@ -45,17 +50,18 @@ function loadBlogsToHome() {
         });
 }
 
-// HOME PAGE BLOG POPUP (ONLY FREE ADDITION)
-
+// HOME PAGE BLOG POPUP (old modal – only used if you still have the HTML)
 const homeModal = document.getElementById("homeBlogModal");
 const closeHomeModal = document.getElementById("closeHomeModal");
 
 function openHomeBlogModal(blog) {
+    if (!homeModal) return;
+
     document.getElementById("homeModalBlogTitle").textContent = blog.title;
 
     const author =
         blog.userId?.fullName ||
-        blog.userId?.fullname ||     // sometimes lowercase depending on mongoose
+        blog.userId?.fullname ||
         blog.userId?.username ||
         "Unknown Author";
 
@@ -69,19 +75,17 @@ function openHomeBlogModal(blog) {
     homeModal.classList.remove("hidden");
 }
 
-closeHomeModal.addEventListener("click", () => {
-    homeModal.classList.add("hidden");
-});
+if (closeHomeModal && homeModal) {
+    closeHomeModal.addEventListener("click", () => {
+        homeModal.classList.add("hidden");
+    });
 
-homeModal.addEventListener("click", (e) => {
-    if (e.target === homeModal) homeModal.classList.add("hidden");
-});
-
-
-
+    homeModal.addEventListener("click", (e) => {
+        if (e.target === homeModal) homeModal.classList.add("hidden");
+    });
+}
 
 // Local user review (not connected to backend)
-
 document.addEventListener("DOMContentLoaded", function () {
     const reviewForm = document.getElementById("reviewForm");
     const reviewCards = document.querySelector(".review-cards");

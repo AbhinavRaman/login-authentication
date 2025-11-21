@@ -1,0 +1,37 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    background: #f4f7fb;
+}
+
+.blog-container {
+    width: 70%;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.backBtn {
+    text-decoration: none;
+    color: #2B8CE7;
+    font-size: 16px;
+}
+
+h1 {
+    margin-top: 10px;
+}
+
+.blog-meta {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.blog-content {
+    font-size: 18px;
+    line-height: 1.7;
+    color: #333;
+    white-space: pre-wrap;
+}

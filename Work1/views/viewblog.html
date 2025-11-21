@@ -4,34 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Blogs</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <style>
+        .all-blogs-wrapper {
+            width: 100%;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="../css/viewblogs.css">
+        .all-blogs-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 900px;
+            margin: 0 auto 20px auto;
+        }
+
+        .all-blogs-header h1 {
+            margin: 0;
+        }
+
+        .backBtn {
+            text-decoration: none;
+            color: #2B8CE7;
+            font-size: 16px;
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 1px solid #2B8CE7;
+            cursor: pointer;
+        }
+
+        .all-blogs-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .blog-card {
+            background: #e5f7ff;
+            padding: 20px;
+            width: 320px;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog-card h3 {
+            margin-top: 0;
+        }
+    </style>
 </head>
 <body>
-
-    <h1 class="page-heading">All Blogs</h1>
-
-    <!-- Blog Cards Grid -->
-    <div class="all-blogs-container" id="allBlogs"></div>
-
-    <!-- Modal Popup for Full Blog -->
-    <div class="blog-modal hidden" id="blogModal">
-
-        <div class="modal-content">
-            <span class="close-btn" id="closeModal">&times;</span>
-
-            <h2 id="modalBlogTitle">Loading...</h2>
-            <p id="modalBlogAuthor" class="blog-author"></p>
-            <p id="modalBlogContent"></p>
-
-            <p class="blog-date" id="modalBlogDate"></p>
+    <div class="all-blogs-wrapper">
+        <div class="all-blogs-header">
+            <h1>All Blogs</h1>
+            <a href="main.html" class="backBtn">⬅ Back to Home</a>
         </div>
 
+        <div class="all-blogs-container" id="allBlogs"></div>
     </div>
 
-    <!-- JS -->
     <script src="../js/viewblogs.js"></script>
-
 </body>
 </html>

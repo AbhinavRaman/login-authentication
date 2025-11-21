@@ -23,12 +23,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const blogList = document.getElementById("blogList");
 
     const blogModal = document.getElementById("blogModal");
-    const viewModal = document.getElementById("viewModal");
 
-    const blogTitleInput = document.getElementById("blogTitleInput");
-    const blogContentInput = document.getElementById("blogContentInput");
-
-    // Edit modal elements
+    // EDIT MODAL
     const editModal = document.getElementById("editModal");
     const editBlogTitleInput = document.getElementById("editBlogTitleInput");
     const editBlogContentInput = document.getElementById("editBlogContentInput");
@@ -48,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
         setActive(menuBlogs);
         profileSection.style.display = "none";
         blogSection.style.display = "block";
-        loadBlogs();  // load blogs from DB
+        loadBlogs();
     });
 
     function setActive(activeItem) {
@@ -91,12 +87,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
                 `;
 
-                // Open full blog view on card click (ignore clicks on buttons)
+                // Click → open full blog page (from = profile)
                 card.addEventListener("click", (e) => {
+                    // Ignore clicks on edit/delete buttons
                     if (e.target.classList.contains("editBlogBtn") || e.target.classList.contains("deleteBlogBtn")) {
                         return;
                     }
-                    viewBlog(blog._id);
+
+                    window.location.href = `viewFullBlog.html?id=${blog._id}&from=profile`;
                 });
 
                 blogList.appendChild(card);
@@ -107,31 +105,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // View full blog details (read-only)
-    async function viewBlog(blogId) {
-        try {
-            const res = await fetch(`http://localhost:3000/api/blogs/${blogId}`, {
-                method: "GET",
-                headers: {
-                    "Authorization": "Bearer " + token
-                }
-            });
-
-            const data = await res.json();
-
-            if (!data.success) {
-                alert("Error loading blog");
-                return;
-            }
-
-            document.getElementById("viewBlogTitle").textContent = data.blog.title;
-            document.getElementById("viewBlogContent").textContent = data.blog.content;
-
-            viewModal.classList.remove("hidden");
-
-        } catch (err) {
-            alert("Error fetching blog data");
-        }
+    // 🔹 If coming from full blog page with ?tab=blogs → open Blogs tab directly
+    const urlParams = new URLSearchParams(window.location.search);
+    const tab = urlParams.get("tab");
+    if (tab === "blogs") {
+        setActive(menuBlogs);
+        profileSection.style.display = "none";
+        blogSection.style.display = "block";
+        loadBlogs();
     }
 
     // Open blog creation modal
@@ -141,12 +122,12 @@ document.addEventListener("DOMContentLoaded", () => {
         blogModal.classList.remove("hidden");
     });
 
-    // Close creation modal
+    // Close blog creation modal
     document.getElementById("cancelBlogBtn").addEventListener("click", () => {
         blogModal.classList.add("hidden");
     });
 
-    // Publish blog → BACKEND
+    // Publish blog
     document.getElementById("publishBlogBtn").addEventListener("click", async () => {
         const title = blogTitleInput.value.trim();
         const content = blogContentInput.value.trim();
@@ -181,27 +162,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Close view modal
-    document.getElementById("closeViewBtn").addEventListener("click", () => {
-        viewModal.classList.add("hidden");
-    });
-
-    // -----------------------------
-    // EDIT BLOG (OPEN EDIT MODAL)
-    // -----------------------------
+    // EDIT BLOG — OPEN EDIT MODAL
     document.addEventListener("click", (e) => {
         if (e.target.classList.contains("editBlogBtn")) {
             e.stopPropagation();
             const id = e.target.getAttribute("data-id");
             editingBlogId = id;
 
-            // Fetch full blog data for editing
-            fetch(`http://localhost:3000/api/blogs/${id}`, {
-                method: "GET",
-                headers: {
-                    "Authorization": "Bearer " + token
-                }
-            })
+            fetch(`http://localhost:3000/api/blogs/${id}`)
                 .then(res => res.json())
                 .then(data => {
                     if (!data.success) {
@@ -214,9 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     editModal.classList.remove("hidden");
                 })
-                .catch(() => {
-                    alert("Error fetching blog for edit");
-                });
+                .catch(() => alert("Error fetching blog for edit"));
         }
     });
 
@@ -237,10 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     "Content-Type": "application/json",
                     "Authorization": "Bearer " + token
                 },
-                body: JSON.stringify({
-                    title: updatedTitle,
-                    content: updatedContent
-                })
+                body: JSON.stringify({ title: updatedTitle, content: updatedContent })
             });
 
             const data = await res.json();
@@ -252,6 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 alert(data.message || "Error updating blog");
             }
+
         } catch (err) {
             alert("Error updating blog");
         }
@@ -268,9 +232,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // -----------------------------
     // DELETE BLOG
-    // -----------------------------
     document.addEventListener("click", async (e) => {
         if (e.target.classList.contains("deleteBlogBtn")) {
             e.stopPropagation();
